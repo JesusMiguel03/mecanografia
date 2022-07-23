@@ -1,132 +1,91 @@
 const input = document.querySelector('.input')
 const contenedor = document.querySelector('.container')
 
-var content = ""
-var tEnd = 0
-var arrayText = []
-var seg = 0
-var min = 0
-
-/* Create text & assign */
-let documentFrag = document.createDocumentFragment()
-let textContent1 = document.createElement('P')
-textContent1.setAttribute('id', 'text')
-documentFrag.appendChild(textContent1)
-contenedor.appendChild(textContent1)
-
 function rNum(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
-function keyboard(content) {
+/* Crea elementos p y guarda las palabras en cada uno */
+function generateP() {
+    let documentFrag = document.createDocumentFragment()
+    for (var i = 0; i < eListEnd; i++) {
+        let textP = document.createElement('P')
+        textP.setAttribute('id', `text${i}`)
+        textP.setAttribute('class', 'text')
+        textP.innerHTML = eList[i]
+        documentFrag.appendChild(textP)
+        contenedor.appendChild(textP)
+    }
+}
+
+/* Compara la tecla presionada con el texto */
+function keyboard(string) {
     var contador = 0
     var i = 0
 
     input.addEventListener('keypress', (e)=> {
         let currentKey = e.key
-        console.log(currentKey + i)
-        console.log(currentKey == content[i])
 
-        let comp = (currentKey==content[i]) ? i++ 
-                                                        && contador++ 
-                                                        && console.log('Contador +1') : i++ 
-                                                                && console.log('Contador -1')
-    
-        if (i == tEnd) {
+        if (currentKey == string[i]) {
+            i++
             contador++
-            setTimeout(()=> {
+        } else {
+            i++
+        }
+        if (i ==tEnd) {
+            setTimeout(()=>{
                 clearInterval(interval)
-                console.log(`[${min}m:${seg}s]`)
-                console.log(`[${contador}/${tEnd}]`)
             })
-            alert(`¡La prueba ha acabado! Tu puntuación es: [${contador}/${tEnd}]`)
-            contenedor.removeChild(textContent1)
-            let documentFrag = document.createDocumentFragment()
-            let textContent2 = document.createElement('P')
-            textContent2.setAttribute('id', 'text')
-            documentFrag.appendChild(textContent2)
-            contenedor.appendChild(textContent2)
-            arrayText = []
-            arrayText += `Has tardado: ${seg} segundos en completar la prueba.`
-            console.log(arrayText)
-            document.getElementById('text').textContent += arrayText
+            let documentFragment = document.createDocumentFragment()
+            let alert = document.createElement('P')
+            let score = document.createElement('P')
+            let time = document.createElement('P')
+            alert.setAttribute('id', 'alert')
+            alert.classList.add('text', 'stop')
+            score.setAttribute('id', 'score')
+            score.classList.add('text', 'score')
+            time.setAttribute('id', 'time')
+            time.classList.add('text', 'time')
+
+            documentFragment.appendChild(alert)
+            documentFragment.appendChild(score)
+            documentFragment.appendChild(time)
+            contenedor.appendChild(alert)
+            contenedor.appendChild(score)
+            contenedor.appendChild(time)
+            function end() {
+                let string = ""
+                document.getElementById('alert').textContent = string = '¡La prueba ha acabado!'
+                document.getElementById('score').textContent = string = `Tu puntuación es de: [${contador}/${tEnd}]`
+                document.getElementById('time').textContent = string = `Has tardado: ${seg}s en completar la prueba.`
+            }
+            end()
         }
     })
 }
 
-switch (rNum(1, 10)) {
-    case 1:
-        arrayText += 'El elefante camina por la sabana en busca de alimento.'
-        let oldArray = arrayText
-        tEnd = arrayText.length
-        console.log(tEnd, arrayText)
-        document.getElementById('text').textContent += arrayText
-        keyboard(arrayText)
-    ;break;
-    case 2:
-        arrayText += 'Las gallinas se despiertan a las 4:00am.'
-        tEnd = arrayText.length
-        console.log(tEnd, arrayText)
-        document.getElementById('text').textContent += arrayText
-        keyboard(arrayText)
-    ;break;
-    case 3:
-        arrayText += 'El elefante camina por la sabana en busca de alimento.'
-        tEnd = arrayText.length
-        console.log(tEnd, arrayText)
-        document.getElementById('text').textContent += arrayText
-        keyboard(arrayText)
-    ;break;
-    case 4:
-        arrayText += 'El perro cruzó el río.'
-        tEnd = arrayText.length
-        console.log(tEnd, arrayText)
-        document.getElementById('text').textContent += arrayText
-        keyboard(arrayText)
-    ;break;
-    case 5:
-        arrayText += 'La ballena nada por el océano.'
-        tEnd = arrayText.length
-        console.log(tEnd, arrayText)
-        document.getElementById('text').textContent += arrayText
-        keyboard(arrayText)
-    ;break;
-    case 6:
-        arrayText += 'Las aves cantan por la noche.'
-        tEnd = arrayText.length
-        console.log(tEnd, arrayText)
-        document.getElementById('text').textContent += arrayText
-        keyboard(arrayText)
-    ;break;
-    case 7:
-        arrayText += 'Dos y dos es cuatro.'
-        tEnd = arrayText.length
-        console.log(tEnd, arrayText)
-        document.getElementById('text').textContent += arrayText
-        keyboard(arrayText)
-    ;break;
-    case 8:
-        arrayText += 'Pedro tocó la puerta.'
-        tEnd = arrayText.length
-        console.log(tEnd, arrayText)
-        document.getElementById('text').textContent += arrayText
-        keyboard(arrayText)
-    ;break;
-    case 9:
-        arrayText += 'El sol está brillante.'
-        tEnd = arrayText.length
-        console.log(tEnd, arrayText)
-        document.getElementById('text').textContent += arrayText
-        keyboard(arrayText)
-    ;break;
-    case 10:
-        arrayText += 'Es de noche.'
-        tEnd = arrayText.length
-        console.log(tEnd, arrayText)
-        document.getElementById('text').textContent += arrayText
-        keyboard(arrayText)
-    ;break; 
+/* Array con palabras, array vacio y cadena vacia */
+var eList = []
+var elements = ['el','elefante','camina','por','la','sabana','en','busca','de','alimento','la','pantera','caza','a','su','presa','con','sus','garras','comer','pescado','carne',
+                            'miel','hierbas','medicina','comida','huevos','casa','hogar','propiedad','consultorio','edificio']
+var string = ""
+
+/* Selecciona elementos para crear la oración */
+for (var i = 0; i < rNum(1, 5); i++) {
+    var random = rNum(0, elements.length-1)
+    eList.push(elements[random])
 }
+/* Cambia la ',' por un espacio y calcula la longitud*/
+string = eList.join(' ')
+var tEnd =  string.length
+var eListEnd = eList.length
+
+generateP()
+keyboard(string)
+
+/* Contador */
+var seg = 0
+var min = 0
 
 const interval = setInterval(()=> {
     seg ++
@@ -137,11 +96,10 @@ const interval = setInterval(()=> {
     if (min == 1) {
         alert('Has tardado demasiado tiempo')
         contenedor.innerHTML = 'Has fallado la prueba'
-        console.log(`[${min}m:${seg}s]`)
     }
+    return seg, min
 }, 1000)
 
 setTimeout(()=> {
     clearInterval(interval)
-    console.log(`[${min}m:${seg}s]`)
 }, 60000)
