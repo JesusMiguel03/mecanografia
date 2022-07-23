@@ -4,12 +4,17 @@ body {
 }
 
 .container {
-    width: 100%;
+    width: 95%;
     height: 200px;
+    margin-left: 2.5%;
     padding-top: 20px;
     background-color: #999;
     color: #FFF;
     box-shadow: 7px 7px 10px #577;
+}
+
+.cont-2 {
+    width: 92.3%;
 }
 
 h2 {
@@ -21,17 +26,31 @@ h2 {
     text-shadow: 2px 2px 2px #FFF;
 }
 
-#text {
+.text {
+    display: inline-block;
+    margin: 2px;
     font-family: 'Dosis', sans-serif;
-    font-weight: 800px;
-    padding: 0 50px;
     text-align: center;
     font-size: 18px;
     text-shadow: 2px 2px 1px #000;
+    word-wrap: break-word;
 }
 
-.textStyle {
-    font-family: 'Dosis', sans-serif;
+.stop {
+    width: 100%;
+    margin: 5px 0;
+    font-size: 3rem;
+}
+
+.score {
+    border-bottom: 1px solid #dfc407;
+    font-size: 2rem;
+}
+
+.time {
+    width: 100%;
+    margin: 10px 0;
+    font-size: 1.2rem;
 }
 
 textarea {
@@ -42,6 +61,7 @@ textarea {
     margin: auto;
     outline: none;
     resize: none;
+    font-family: 'Dosis', sans-serif;
     background-color:#666;
     transition: background-color 0.5s;
 }
@@ -53,6 +73,7 @@ textarea:focus {
 
 .center {
     text-align: center;
+    padding: 20px 16px 0;
 }
 
 .green {
