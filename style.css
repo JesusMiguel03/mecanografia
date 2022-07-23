@@ -4,21 +4,29 @@ body {
 }
 
 .container {
-    width: 95%;
     height: 200px;
-    margin-left: 2.5%;
     padding-top: 20px;
     background-color: #999;
     color: #FFF;
     box-shadow: 7px 7px 10px #577;
 }
 
-.cont-2 {
-    width: 92.3%;
+.button {
+    width: 4rem;
+    height: 2.5rem;
+    color: #FFF;
+    border: none;
+    border-radius: 5px;
+    background-color: #166;
+}
+
+.img {
+    width: 1.8rem;
 }
 
 h2 {
-    padding: 20px;
+    padding: 20px 0;
+    text-align: center;
     font-size: 36px;
     border-top: 2px solid #19c;
     border-bottom: 2px solid #19c;
@@ -39,18 +47,25 @@ h2 {
 .stop {
     width: 100%;
     margin: 5px 0;
-    font-size: 3rem;
+    font-size: 2.1rem;
+    color: #e92;
 }
 
 .score {
     border-bottom: 1px solid #dfc407;
-    font-size: 2rem;
+    font-size: 1.7rem;
 }
 
 .time {
     width: 100%;
     margin: 10px 0;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    color: #000;
+    text-shadow: 1px 1px 1px #FFF;
+}
+
+#fail {
+    font-size: 3rem;
 }
 
 textarea {
@@ -82,4 +97,40 @@ textarea:focus {
 
 .red {
     color: #c69;
+}
+
+@media only screen and (min-width: 280px) {
+    .stop {
+      font-size: 1.7rem;
+    }
+    .score {
+        font-size: 1.2rem;
+    }
+    .time {
+        font-size: 0.9rem;
+    }
+}
+
+@media only screen and (min-width: 450px) {
+    .stop {
+      font-size: 2.4rem;
+    }
+    .score {
+        font-size: 1.8rem;
+    }
+    .time {
+        font-size: 1.3rem;
+    }
+}
+
+@media only screen and (min-width: 700px) {
+    .stop {
+      font-size: 3rem;
+    }
+    .score {
+        font-size: 2.3rem;
+    }
+    .time {
+        font-size: 1.5rem;
+    }
 }
