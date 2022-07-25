@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -15,11 +15,15 @@
 
 <body>
     <main>
-        <button onclick="codeInit()" class="button"><img src="https://cdn-icons-png.flaticon.com/512/179/179407.png" class="img"></button>
-        <!-- <button onclick="timeOut()" class="button"><img src="https://cdn-icons.flaticon.com/png/512/1892/premium/1892001.png?token=exp=1658619024~hmac=4ea1659ebfae466ad3364ac412ed0ded" class="img"></button> -->
+        <div class="top-container"> <!-- Contenedor del botón y cronómetro -->
+            <button onclick="codeInit()" class="button"><img src="https://cdn-icons-png.flaticon.com/512/179/179407.png" class="img"></button>
+            <div class="timer">0:00</div>
+        </div>
+        <!-- Contenido -->
         <h2 class="textStyle">Prueba de Mecanografía</h2>
         <div class="container center"></div>
         <br>
+        <!-- Input para la prueba -->
         <div id="container" class="container">
             <textarea id="textarea" class="input" autofocus></textarea>
         </div>
