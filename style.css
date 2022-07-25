@@ -1,20 +1,32 @@
+* {
+    --White: #FFF;
+    --Black: #000;
+    --GrayWhite: #ccc;
+}
+
+/* Contenido */
 body {
     box-sizing: border-box;
-    background-color: #ccc;
+    background-color: var(--GrayWhite);
+}
+
+.top-container {
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .container {
     height: 200px;
     padding-top: 20px;
     background-color: #999;
-    color: #FFF;
+    color: var(--White);
     box-shadow: 7px 7px 10px #577;
 }
 
 .button {
     width: 4rem;
     height: 2.5rem;
-    color: #FFF;
+    margin: 0 15px;
     border: none;
     border-radius: 5px;
     background-color: #166;
@@ -24,6 +36,12 @@ body {
     width: 1.8rem;
 }
 
+/* Texto */
+.center {
+    text-align: center;
+    padding: 20px 16px 0;
+}
+
 h2 {
     padding: 20px 0;
     text-align: center;
@@ -31,7 +49,7 @@ h2 {
     border-top: 2px solid #19c;
     border-bottom: 2px solid #19c;
     box-shadow: 15px 15px 9px #9aa;
-    text-shadow: 2px 2px 2px #FFF;
+    text-shadow: 2px 2px 2px var(--White);
 }
 
 .text {
@@ -40,8 +58,36 @@ h2 {
     font-family: 'Dosis', sans-serif;
     text-align: center;
     font-size: 18px;
-    text-shadow: 2px 2px 1px #000;
+    text-shadow: 2px 2px 1px var(--Black);
     word-wrap: break-word;
+}
+
+textarea {
+    display: block;
+    box-sizing: border-box;
+    width: 95%;
+    height: 90%;
+    margin: auto;
+    outline: none;
+    resize: none;
+    font-family: 'Dosis', sans-serif;
+    background-color:#666;
+    transition: background-color 0.5s;
+}
+
+textarea:focus {
+    background-color: var(--GrayWhite);
+    transition: background-color 0.5s;
+}
+
+/* Contenido dinámico, si gana o pierde */
+.timer {
+    width: 80px;
+    height: 20px;
+    padding: 5px 0;
+    margin-top: 2.5px;
+    background-color: var(--White);
+    text-align: center;
 }
 
 .stop {
@@ -60,37 +106,15 @@ h2 {
     width: 100%;
     margin: 10px 0;
     font-size: 1.1rem;
-    color: #000;
-    text-shadow: 1px 1px 1px #FFF;
+    color: var(--Black);
+    text-shadow: 1px 1px 1px var(--White);
 }
 
 #fail {
     font-size: 3rem;
 }
 
-textarea {
-    display: block;
-    box-sizing: border-box;
-    width: 95%;
-    height: 90%;
-    margin: auto;
-    outline: none;
-    resize: none;
-    font-family: 'Dosis', sans-serif;
-    background-color:#666;
-    transition: background-color 0.5s;
-}
-
-textarea:focus {
-    background-color: #ccc;
-    transition: background-color 0.5s;
-}
-
-.center {
-    text-align: center;
-    padding: 20px 16px 0;
-}
-
+/* Colores cuando está bien escrita una palabra o no */
 .green {
     color: #9c9;
 }
