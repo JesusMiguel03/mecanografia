@@ -2,67 +2,73 @@
     --White: #FFF;
     --Black: #000;
     --GrayWhite: #ccc;
+    --BlackWhite: #444;
 }
 
-/* Contenido */
+/* [Esp] Contenido | [Eng] Content*/
 body {
     box-sizing: border-box;
     background-color: var(--GrayWhite);
 }
-
 .top-container {
     display: flex;
+    justify-content: flex-end;
     flex-wrap: wrap;
 }
-
 .container {
     height: 200px;
     padding-top: 20px;
-    background-color: #999;
+    background-color: #aaa;
     color: var(--White);
-    box-shadow: 7px 7px 10px #577;
+    box-shadow: 7px 7px 10px #888;
 }
-
 .button {
-    width: 4rem;
+    width: 4.5rem;
     height: 2.5rem;
     margin: 0 15px;
     border: none;
     border-radius: 5px;
-    background-color: #166;
+    background-color: #17b;
 }
-
 .img {
-    width: 1.8rem;
+    width: 2rem;
+}
+.toggler {
+    width: 2rem;
+    height: 2rem;
+    padding: 5px 0;
+    margin: 0 15px;
 }
 
-/* Texto */
+/* [Esp] Texto | [Eng] Text */
 .center {
     text-align: center;
     padding: 20px 16px 0;
 }
-
-h2 {
-    padding: 20px 0;
+.page-title {
+    padding: 10px 0;
     text-align: center;
-    font-size: 36px;
-    border-top: 2px solid #19c;
-    border-bottom: 2px solid #19c;
-    box-shadow: 15px 15px 9px #9aa;
+    font-size: 2rem;
     text-shadow: 2px 2px 2px var(--White);
 }
-
+.page-title:after {
+    content: "";
+    display: block;
+    margin: 0 auto;
+    width: 35%;
+    padding-top: 5px;
+    border-bottom: 2px solid #c63;
+}
 .text {
     display: inline-block;
     margin: 2px;
+    color: var(--Black);
     font-family: 'Dosis', sans-serif;
     text-align: center;
-    font-size: 18px;
-    text-shadow: 2px 2px 1px var(--Black);
+    font-size: 1.2rem;
     word-wrap: break-word;
 }
-
-textarea {
+#textarea {
     display: block;
     box-sizing: border-box;
     width: 95%;
@@ -71,37 +77,35 @@ textarea {
     outline: none;
     resize: none;
     font-family: 'Dosis', sans-serif;
-    background-color:#666;
+    background-color: #888;
     transition: background-color 0.5s;
 }
-
-textarea:focus {
+#textarea:focus {
     background-color: var(--GrayWhite);
     transition: background-color 0.5s;
 }
 
-/* Contenido dinámico, si gana o pierde */
+/* [Esp] Contenido dinámico, si gana o pierde | [Eng] Dinamic content */
 .timer {
     width: 80px;
     height: 20px;
     padding: 5px 0;
-    margin-top: 2.5px;
+    margin-top: 5px;
+    border-radius: 5px;
     background-color: var(--White);
     text-align: center;
 }
-
 .stop {
     width: 100%;
     margin: 5px 0;
     font-size: 2.1rem;
     color: #e92;
+    text-shadow: 2px 2px 2px var(--Black);
 }
-
 .score {
     border-bottom: 1px solid #dfc407;
     font-size: 1.7rem;
 }
-
 .time {
     width: 100%;
     margin: 10px 0;
@@ -109,23 +113,63 @@ textarea:focus {
     color: var(--Black);
     text-shadow: 1px 1px 1px var(--White);
 }
-
 #fail {
     font-size: 3rem;
 }
 
-/* Colores cuando está bien escrita una palabra o no */
+/* [Esp] Colores y modo oscuro | [Eng] Colors & Dark mode */
 .green {
     color: #9c9;
 }
-
 .red {
     color: #c69;
 }
+.dark-mode {
+    background-color: var(--BlackWhite)
+}
+.container-dark-mode {
+    background-color: #555;
+}
+.page-title-dark-mode {
+    color: var(--White);
+    text-shadow: 2px 2px 2px var(--Black);
+}
+.page-title-dark-mode::after {
+    content: "";
+    display: block;
+    margin: 0 auto;
+    width: 35%;
+    padding-top: 5px;
+    border-bottom: 2px solid #19c;
+}
+#textarea-dark-mode {
+    background-color: #aaa;
+}
+#textarea-dark-mode:focus {
+    background-color: var(--BlackWhite);
+}
 
-@media only screen and (min-width: 280px) {
+@media screen and (min-width: 340px) and (max-width: 449px) {
+    .container {
+        height: 280px;
+    }
+    .page-title {
+        padding: 10px 0;
+        font-size: .9rem;
+    }
+    .page-title:after {
+        content: "";
+        display: block;
+        margin: 0 auto;
+        width: 50%;
+        padding-top: 5px;
+        border-bottom: 2px solid #c63;
+    }
+    .text {
+        font-size: .9rem;
+    }
     .stop {
-      font-size: 1.7rem;
+        font-size: 1.7rem;
     }
     .score {
         font-size: 1.2rem;
@@ -135,9 +179,27 @@ textarea:focus {
     }
 }
 
-@media only screen and (min-width: 450px) {
+@media screen and (min-width: 450px) and (max-width: 699px) {
+    .container {
+        height: 200px;
+    }
+    .page-title {
+        padding: 10px 0;
+        font-size: 1.3rem;
+    }
+    .page-title:after {
+        content: "";
+        display: block;
+        margin: 0 auto;
+        width: 60%;
+        padding-top: 5px;
+        border-bottom: 2px solid #c63;
+    }
+    .text {
+        font-size: .9rem;
+    }
     .stop {
-      font-size: 2.4rem;
+        font-size: 2.4rem;
     }
     .score {
         font-size: 1.8rem;
@@ -147,9 +209,27 @@ textarea:focus {
     }
 }
 
-@media only screen and (min-width: 700px) {
+@media screen and (min-width: 700px) and (max-width: 800px) {
+    .container {
+        height: 200px;
+    }
+    .page-title {
+        padding: 10px 0;
+        font-size: 1.4rem;
+    }
+    .page-title:after {
+        content: "";
+        display: block;
+        margin: 0 auto;
+        width: 50%;
+        padding-top: 5px;
+        border-bottom: 2px solid #c63;
+    }
+    .text {
+        font-size: 1.1rem;
+    }
     .stop {
-      font-size: 3rem;
+        font-size: 3rem;
     }
     .score {
         font-size: 2.3rem;
