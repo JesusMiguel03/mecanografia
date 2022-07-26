@@ -69,7 +69,7 @@ function codeInit() {
     var elements_string = ""
 
     // [Esp] Selecciona elementos para crear la oración / [Eng] Generate the sentence
-    for (var i = 0; i < rNum(1, 5); i++) {
+    for (var i = 0; i < rNum(40, 60); i++) {
         var random = rNum(0, elements.length - 1)
         eList.push(elements[random])
     }
