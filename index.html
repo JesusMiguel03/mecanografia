@@ -15,15 +15,16 @@
 
 <body>
     <main>
-        <div class="top-container"> <!-- Contenedor del botón y cronómetro -->
-            <button onclick="codeInit()" class="button"><img src="https://cdn-icons-png.flaticon.com/512/179/179407.png" class="img"></button>
+        <div class="top-container"> <!-- [Esp] Contenedor del botón y cronómetro | [Eng] Button & Cronometer -->
             <div class="timer">0:00</div>
+            <div onclick="toggler()" class="toggler"><img src="day-and-night.png" class="img toggle"></div>
+            <button onclick="codeInit()" class="button"><img src="https://cdn-icons-png.flaticon.com/512/179/179407.png" class="img"></button>
         </div>
-        <!-- Contenido -->
-        <h2 class="textStyle">Prueba de Mecanografía</h2>
+        <!-- [Esp] Contenido | [Eng] Content -->
+        <h2 class="page-title">Prueba de Mecanografía</h2>
         <div class="container center"></div>
         <br>
-        <!-- Input para la prueba -->
+        <!-- [Esp] Input para la prueba | [Eng] Input -->
         <div id="container" class="container">
             <textarea id="textarea" class="input" autofocus></textarea>
         </div>
