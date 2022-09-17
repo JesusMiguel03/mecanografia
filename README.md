@@ -4,7 +4,7 @@ Cuenta con:
 
 - Estadísticas locales, bien se registre como usuario o invitado, se guardará las estadísticas de la prueba y mostrará la siguiente vez que acceda a la página.
 - Cantidad de párrafos definible.
-- Enlaces a futuros proyectos, también otros de reflejos.
+- Menú responsivo, con enlaces a futuros proyectos.
 - Cambio de color, cuando el texto sea: 
 ```diff
 - Incorrecto.
