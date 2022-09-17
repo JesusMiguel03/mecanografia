@@ -21,10 +21,12 @@ const [score, userStored, ptsStored, missStored, timeStored] = [
     document.getElementById("timeStored"),
 ]
 
-userStored.innerHTML = score.username
-ptsStored.innerHTML = `Puntos: &nbsp;${score.ptsObtained} &nbsp;/&nbsp; ${score.ptsTotal}`
-missStored.innerHTML = `Errores: ${score.mistakes}`
-timeStored.innerHTML = `Tiempo: ${score.time}`
+score !== "undefined" ? (
+    userStored.innerHTML = score.username,
+    ptsStored.innerHTML = `Puntos: &nbsp;${score.ptsObtained} &nbsp;/&nbsp; ${score.ptsTotal}`,
+    missStored.innerHTML = `Errores: ${score.mistakes}`,
+    timeStored.innerHTML = `Tiempo: ${score.time}`,
+) : ""
 
 const [
     registeredAsUser,
