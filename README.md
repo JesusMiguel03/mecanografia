@@ -1,3 +1,29 @@
 # Mecanografia
 
+Cuenta con:
+
+- Estadísticas locales, bien se registre como usuario o invitado, se guardará las estadísticas de la prueba y mostrará la siguiente vez que acceda a la página.
+- Cantidad de párrafos definible.
+- Enlaces a futuros proyectos, también otros de reflejos.
+- Cambio de color, cuando el texto sea: 
+```diff
+- Incorrecto.
++ Correcto.
+# Aún no se ha escrito.
+```
+
+_Un vistazo a la apariencia de la página_:
+
+> Para pantallas de celular / móvil / teléfono:
+
+![This is an image](preview/mobile.png)
+![This is an image](preview/mobile-logged.png)
+
+***
+> Para pantallas superiores:
+
 ![This is an image](preview/pc.png)
+***
+![This is an image](preview/pc-logged.png)
+
+Hecha con propósitos de aprendizaje en lenguaje JavaScript, HTML semántico y [Tailwind CSS](https://tailwindcss.com) .
