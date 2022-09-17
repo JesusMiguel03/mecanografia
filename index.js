@@ -21,12 +21,13 @@ const [score, userStored, ptsStored, missStored, timeStored] = [
     document.getElementById("timeStored"),
 ]
 
-score !== "undefined" ? (
-    userStored.innerHTML = score.username,
-    ptsStored.innerHTML = `Puntos: &nbsp;${score.ptsObtained} &nbsp;/&nbsp; ${score.ptsTotal}`,
-    missStored.innerHTML = `Errores: ${score.mistakes}`,
-    timeStored.innerHTML = `Tiempo: ${score.time}`,
-) : ""
+score !== undefined
+    ? (document.getElementById("showBestScore").classList.remove("hidden"),
+      (userStored.innerHTML = score.username),
+      (ptsStored.innerHTML = `Puntos: &nbsp;${score.ptsObtained} &nbsp;/&nbsp; ${score.ptsTotal}`),
+      (missStored.innerHTML = `Errores: ${score.mistakes}`),
+      (timeStored.innerHTML = `Tiempo: ${score.time}`))
+    : ""
 
 const [
     registeredAsUser,
@@ -354,9 +355,17 @@ const iniciar = (valueMin, valueMax) => {
             const element = spanElements[(temp.length - 1, temp.length - 1)]
             if (temp !== "") {
                 element.innerText === temp[temp.length - 1]
-                    ? (element.classList.add("g", "text-writted", "md:text-2xl"),
+                    ? (element.classList.add(
+                          "g",
+                          "text-writted",
+                          "md:text-2xl"
+                      ),
                       element.classList.remove("r"))
-                    : (element.classList.add("r", "text-writted", "md:text-2xl"),
+                    : (element.classList.add(
+                          "r",
+                          "text-writted",
+                          "md:text-2xl"
+                      ),
                       element.classList.remove("g"))
                 str.substring(0, temp.length) === temp ? pts++ : miss++
             }
