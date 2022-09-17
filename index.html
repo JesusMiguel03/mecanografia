@@ -1,35 +1,268 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mecanografía</title>
+    <title>pGames | Mecanografía</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2178/2178211.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="tailwind\output.css">
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/2178/2178211.png">
 </head>
 
 <body>
-    <main>
-        <div class="top-container"> <!-- [Esp] Contenedor del botón y cronómetro | [Eng] Button & Cronometer -->
-            <div class="timer">0:00</div>
-            <div onclick="toggler()" class="toggler"><img src="day-and-night.png" class="img toggle"></div>
-            <button onclick="codeInit()" class="button"><img src="https://cdn-icons-png.flaticon.com/512/179/179407.png" class="img"></button>
+    <article class="h-full md:h-screen bg-neutral-300 dark:bg-neutral-500">
+        <!-- Modal -->
+        <div id="modal" tabindex="-1"
+            class="overflow-y-auto overflow-x-hidden fixed backdrop-blur-md z-50 w-full h-screen md:h-full opacity-100">
+            <div class="relative mx-auto p-4 w-screen max-w-2xl h-screen md:h-auto">
+                <!-- Modal content -->
+                <div class="relative bg-white rounded-lg shadow dark:bg-slate-800">
+                    <!-- Modal header -->
+                    <div class="flex justify-between items-center p-5 rounded-t border-b dark:border-gray-600">
+                        <h3 class="text-xl font-medium text-gray-900 dark:text-white">
+                            ¿Te gustaría registrar un usuario?
+                        </h3>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="p-6 space-y-6">
+                        <span class="text-base leading-relaxed text-gray-700 dark:text-gray-300">
+                            Al registrar un usario podrás guardar las estadísticas de todas las pruebas que hagas dentro
+                            de esta página. En caso de no querer registrarse puede continuar como invitado
+                        </span>
+                        <label class="block">
+                            <span class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Usuario</span>
+                            <input type="text" id="user"
+                                class="peer rounded-lg block w-full p-2.5 bg-gray-50 border border-gray-300 text-gray-900 text-sm dark:bg-white focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-emerald-500"
+                                placeholder="Aaron">
+                            <small id="help" class="hidden text-red-400">¡No se puede registrar un usuario sin
+                                nombre!</small>
+                        </label>
+                        <section class="grid gap-6 mb-6 md:grid-cols-2">
+                            <div>
+                                <label for="valueMin"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Párrafos
+                                    mínimos</label>
+                                <input type="number" id="valueMin"
+                                    class="peer rounded-lg block w-full p-2.5 bg-gray-50 border border-gray-300 text-gray-900 text-sm dark:bg-white focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-blue-500"
+                                    placeholder="Mínimo... E.j: 5" required>
+                                <small id="helpMin" class="hidden text-red-400">No cumple los requisitos</small>
+                            </div>
+                            <div>
+                                <label for="valueMax"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Párrafos
+                                    máximos</label>
+                                <input type="number" id="valueMax"
+                                    class="peer rounded-lg block w-full p-2.5 bg-gray-50 border border-gray-300 text-gray-900 text-sm dark:bg-white focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-blue-500"
+                                    placeholder="Máximo... E.j: 10" required>
+                                <small id="helpMax" class="hidden text-red-400">No cumple los requisitos</small>
+                            </div>
+                        </section>
+                    </div>
+                    <!-- Modal footer -->
+                    <div
+                        class="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
+                        <button type="button" id="register-user"
+                            class="text-black bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-500">Registrar</button>
+                        <button type="button" id="register-guest"
+                            class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Invitado</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- [Esp] Contenido | [Eng] Content -->
-        <h2 class="page-title">Prueba de Mecanografía</h2>
-        <div class="container center"></div>
-        <br>
-        <!-- [Esp] Input para la prueba | [Eng] Input -->
-        <div id="container" class="container">
-            <textarea id="textarea" class="input" autofocus></textarea>
-        </div>
-    </main>
-</body>
+        <section class="grid grid-cols-5 bg-white dark:bg-slate-800 shadow-xl py-2 font-title">
+            <aside class="col-span-1 md:hidden place-content-center my-auto">
+                <section class="flex items-center">
+                    <!-- Navbar goes here -->
+                    <nav class="mx-auto">
+                        <div class="px-4">
+                            <div class="flex">
+                                <!-- Mobile menu button -->
+                                <div class="md:hidden flex items-center">
+                                    <button class="outline-none mobile-menu-button">
+                                        <svg class=" w-8 h-8 text-black dark:text-white hover:text-sky-500"
+                                            x-show="!showMenu" fill="none" stroke-linecap="round"
+                                            stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <path d="M4 6h16M4 12h16M4 18h16"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- mobile menu -->
+                        <div class="hidden mobile-menu absolute pb-4">
+                            <ul>
+                                <li>
+                                    <a href="#"
+                                        class="rounded-t-md block text-sm p-4 text-white dark:text-black bg-neutral-400 dark:bg-neutral-200 hover:bg-neutral-500 hover:text-white transition duration-300">Página
+                                        principal</a>
+                                </li>
+                                <li class="active">
+                                    <a href="index.html"
+                                        class="block p-4 text-sm text-black dark:text-white bg-neutral-200 dark:bg-neutral-600">Mecanografía</a>
+                                </li>
+                                <li>
+                                    <a href="#"
+                                        class="block text-sm p-4 text-white dark:text-black bg-neutral-400 dark:bg-neutral-200 hover:bg-neutral-500 hover:text-white transition duration-300">Próximamente</a>
+                                </li>
+                                <li>
+                                    <a href="#"
+                                        class="rounded-b-md block text-sm p-4 text-white dark:text-black bg-neutral-400 dark:bg-neutral-200 hover:bg-neutral-500 hover:text-white transition duration-300">Próximamente</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+            </aside>
+            <header class="col-span-4 md:col-span-5 md:text-2xl bg-white dark:bg-slate-800">
+                <section>
+                    <h1 class="text-center italic text-lg md:text-2xl text-black dark:text-white">
+                        Prueba de mecanografía</h1>
+                </section>
+            </header>
+            <div class="col-span-5 flex justify-center items-center gap-4 my-4">
+                <div id="timer" class="px-4 rounded-md text-black dark:text-white bg-neutral-200 dark:bg-neutral-400">0:00</div>
+                <button id="change-txt"
+                    class="btn rounded-md px-4 text-black dark:text-white bg-red-500 hover:bg-red-600 dark:bg-rose-500 dark:hover:bg-rose-600 hover:text-white dark:hover:text-black transition duration-300">Cambiar
+                    texto</button>
+                <div id="showUserName" class="text-black dark:text-white bg-neutral-200 dark:bg-neutral-400 px-4 rounded-md"></div>
+            </div>
+        </section>
+        <main class="grid grid-cols-5 font-text md:mx-auto">
+            <article class="hidden md:col-span-1 md:block">
+                <button id="aside-btn"
+                    class="btn w-btn text-sm p-4 text-black dark:text-white bg-red-500 hover:bg-red-600 dark:bg-rose-500 dark:hover:bg-rose-600 hover:text-white dark:hover:text-black transition duration-300">
+                    <div class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                            class="w-6 h-6 mr-4">
+                            <path fill-rule="evenodd"
+                                d="M11.622 1.602a.75.75 0 01.756 0l2.25 1.313a.75.75 0 01-.756 1.295L12 3.118 10.128 4.21a.75.75 0 11-.756-1.295l2.25-1.313zM5.898 5.81a.75.75 0 01-.27 1.025l-1.14.665 1.14.665a.75.75 0 11-.756 1.295L3.75 8.806v.944a.75.75 0 01-1.5 0V7.5a.75.75 0 01.372-.648l2.25-1.312a.75.75 0 011.026.27zm12.204 0a.75.75 0 011.026-.27l2.25 1.312a.75.75 0 01.372.648v2.25a.75.75 0 01-1.5 0v-.944l-1.122.654a.75.75 0 11-.756-1.295l1.14-.665-1.14-.665a.75.75 0 01-.27-1.025zm-9 5.25a.75.75 0 011.026-.27L12 11.882l1.872-1.092a.75.75 0 11.756 1.295l-1.878 1.096V15a.75.75 0 01-1.5 0v-1.82l-1.878-1.095a.75.75 0 01-.27-1.025zM3 13.5a.75.75 0 01.75.75v1.82l1.878 1.095a.75.75 0 11-.756 1.295l-2.25-1.312a.75.75 0 01-.372-.648v-2.25A.75.75 0 013 13.5zm18 0a.75.75 0 01.75.75v2.25a.75.75 0 01-.372.648l-2.25 1.312a.75.75 0 11-.756-1.295l1.878-1.096V14.25a.75.75 0 01.75-.75zm-9 5.25a.75.75 0 01.75.75v.944l1.122-.654a.75.75 0 11.756 1.295l-2.25 1.313a.75.75 0 01-.756 0l-2.25-1.313a.75.75 0 11.756-1.295l1.122.654V19.5a.75.75 0 01.75-.75z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <span class="self-center text-xl font-semibold whitespace-nowrap">pGames
+                            Studios</span>
+                    </div>
+                </button>
+                <ul id="pc-menu">
+                    <li>
+                        <a href="#"
+                            class="block text-sm p-4 bg-neutral-400 dark:bg-neutral-200 hover:bg-neutral-500 hover:text-white transition duration-300">Página
+                            principal</a>
+                    </li>
+                    <li class="active">
+                        <a href="index.html"
+                            class="block p-4 text-sm text-black dark:text-white bg-neutral-200 dark:bg-neutral-400 font-bold">Mecanografía</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block text-sm p-4 bg-neutral-400 dark:bg-neutral-200 hover:bg-neutral-500 hover:text-whitetransition duration-300">Próximamente</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block text-sm p-4 rounded-b-md bg-neutral-400 dark:bg-neutral-200 hover:bg-neutral-500 hover:text-white transition duration-300">Próximamente</a>
+                    </li>
+                </ul>
+            </article>
+            <article class="col-span-5 md:col-span-4">
+                <div class="p-4">
+                    <section id="string"
+                        class="flex flex-wrap text-sm md:text-2xl text-black dark:text-gray-700 my-4 px-8 py-4 justify-center text-center font-bold mb-8 bg-neutral-400 dark:bg-neutral-300 rounded-md">
+                    </section>
+                    <textarea id="text"
+                        class="p-4 rounded-md placeholder:italic placeholder:text-black caret-blue-500 h-48 w-full font-xs focus:outline-none focus:ring focus:ring-violet-300 bg-neutral-400 dark:bg-neutral-300 text-black dark:text-white resize-none"
+                        placeholder="Escribe aquí tu respuesta..."></textarea>
+                    <article id="statistics"
+                        class="hidden md:w-6/12  mx-auto my-8 p-2 font-title bg-neutral-400 dark:bg-neutral-300 text-lg rounded-md text-center text-white dark:text-black md:text-2xl">
+                        <div id="pts"></div>
+                        <div id="miss"></div>
+                        <div id="time"></div>
+                        <div class="flex justify-center my-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" id="reload"
+                                class="w-12 h-12 cursor-pointer rounded-md p-2 text-black dark:text-white bg-red-500 hover:bg-red-600 dark:bg-rose-500 dark:hover:bg-rose-600 hover:text-white dark:hover:text-black">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                            </svg>
+                        </div>
+                    </article>
+                    <section class="flex items-center justify-center my-2 sm:hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                            class="w-10 h-10 fill-black dark:fill-white">
+                            <path fill-rule="evenodd"
+                                d="M3 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H3.75A.75.75 0 013 10z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                            class="w-5 h-5 fill-blue-500">
+                            <path fill-rule="evenodd"
+                                d="M9.493 2.853a.75.75 0 00-1.486-.205L7.545 6H4.198a.75.75 0 000 1.5h3.14l-.69 5H3.302a.75.75 0 000 1.5h3.14l-.435 3.148a.75.75 0 001.486.205L7.955 14h2.986l-.434 3.148a.75.75 0 001.486.205L12.456 14h3.346a.75.75 0 000-1.5h-3.14l.69-5h3.346a.75.75 0 000-1.5h-3.14l.435-3.147a.75.75 0 00-1.486-.205L12.045 6H9.059l.434-3.147zM8.852 7.5l-.69 5h2.986l.69-5H8.852z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <span class="underline decoration-blue-500 text-black dark:text-white">Para propósitos
+                            educativos</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                            class="w-10 h-10 fill-black dark:fill-white">
+                            <path fill-rule="evenodd"
+                                d="M3 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H3.75A.75.75 0 013 10z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </section>
+                    <section id="showBestScore"
+                        class="md:w-6/12 mx-auto mb-16 py-2 md:py-4 md:mt-8 bg-neutral-400 dark:bg-neutral-300 text-sm rounded-md text-center text-white dark:text-black md:text-2xl font-title">
+                        <h2 class="my-2 font-bold text-2xl text-black">Mejor puntuación</h2>
+                        <div class="flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                class="w-6 h-6 mr-4 fill-black">
+                                <path fill-rule="evenodd"
+                                    d="M5.166 2.621v.858c-1.035.148-2.059.33-3.071.543a.75.75 0 00-.584.859 6.753 6.753 0 006.138 5.6 6.73 6.73 0 002.743 1.346A6.707 6.707 0 019.279 15H8.54c-1.036 0-1.875.84-1.875 1.875V19.5h-.75a2.25 2.25 0 00-2.25 2.25c0 .414.336.75.75.75h15a.75.75 0 00.75-.75 2.25 2.25 0 00-2.25-2.25h-.75v-2.625c0-1.036-.84-1.875-1.875-1.875h-.739a6.706 6.706 0 01-1.112-3.173 6.73 6.73 0 002.743-1.347 6.753 6.753 0 006.139-5.6.75.75 0 00-.585-.858 47.077 47.077 0 00-3.07-.543V2.62a.75.75 0 00-.658-.744 49.22 49.22 0 00-6.093-.377c-2.063 0-4.096.128-6.093.377a.75.75 0 00-.657.744zm0 2.629c0 1.196.312 2.32.857 3.294A5.266 5.266 0 013.16 5.337a45.6 45.6 0 012.006-.343v.256zm13.5 0v-.256c.674.1 1.343.214 2.006.343a5.265 5.265 0 01-2.863 3.207 6.72 6.72 0 00.857-3.294z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            <span id="userStored"
+                                class="text-xl font-title underline decoration-blue-500 md:text-2xl"></span>
 
-<script src="code.js"></script>
+                        </div>
+                        <div id="ptsStored" class="text-lg"></div>
+                        <div id="missStored" class="text-lg"></div>
+                        <div id="timeStored" class="text-lg"></div>
+                    </section>
+                </div>
+            </article>
+        </main>
+        <footer
+            class="fixed bottom-0 left-0 right-0 flex justify-between mt-2 px-6 py-4 mx-auto font-title text-white bg-white dark:bg-slate-800 shadow-xl">
+            <section class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                    class="w-6 h-6 mr-4 fill-black dark:fill-white">
+                    <path fill-rule="evenodd"
+                        d="M11.622 1.602a.75.75 0 01.756 0l2.25 1.313a.75.75 0 01-.756 1.295L12 3.118 10.128 4.21a.75.75 0 11-.756-1.295l2.25-1.313zM5.898 5.81a.75.75 0 01-.27 1.025l-1.14.665 1.14.665a.75.75 0 11-.756 1.295L3.75 8.806v.944a.75.75 0 01-1.5 0V7.5a.75.75 0 01.372-.648l2.25-1.312a.75.75 0 011.026.27zm12.204 0a.75.75 0 011.026-.27l2.25 1.312a.75.75 0 01.372.648v2.25a.75.75 0 01-1.5 0v-.944l-1.122.654a.75.75 0 11-.756-1.295l1.14-.665-1.14-.665a.75.75 0 01-.27-1.025zm-9 5.25a.75.75 0 011.026-.27L12 11.882l1.872-1.092a.75.75 0 11.756 1.295l-1.878 1.096V15a.75.75 0 01-1.5 0v-1.82l-1.878-1.095a.75.75 0 01-.27-1.025zM3 13.5a.75.75 0 01.75.75v1.82l1.878 1.095a.75.75 0 11-.756 1.295l-2.25-1.312a.75.75 0 01-.372-.648v-2.25A.75.75 0 013 13.5zm18 0a.75.75 0 01.75.75v2.25a.75.75 0 01-.372.648l-2.25 1.312a.75.75 0 11-.756-1.295l1.878-1.096V14.25a.75.75 0 01.75-.75zm-9 5.25a.75.75 0 01.75.75v.944l1.122-.654a.75.75 0 11.756 1.295l-2.25 1.313a.75.75 0 01-.756 0l-2.25-1.313a.75.75 0 11.756-1.295l1.122.654V19.5a.75.75 0 01.75-.75z"
+                        clip-rule="evenodd" />
+                </svg>
+                <p class="text-black dark:text-white">Derechos reservados | 2022 | pGames</p>
+            </section>
+            <section class="hidden md:flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                    class="w-10 h-10 fill-black dark:fill-white">
+                    <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H3.75A.75.75 0 013 10z"
+                        clip-rule="evenodd" />
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                    class="w-5 h-5 fill-blue-500">
+                    <path fill-rule="evenodd"
+                        d="M9.493 2.853a.75.75 0 00-1.486-.205L7.545 6H4.198a.75.75 0 000 1.5h3.14l-.69 5H3.302a.75.75 0 000 1.5h3.14l-.435 3.148a.75.75 0 001.486.205L7.955 14h2.986l-.434 3.148a.75.75 0 001.486.205L12.456 14h3.346a.75.75 0 000-1.5h-3.14l.69-5h3.346a.75.75 0 000-1.5h-3.14l.435-3.147a.75.75 0 00-1.486-.205L12.045 6H9.059l.434-3.147zM8.852 7.5l-.69 5h2.986l.69-5H8.852z"
+                        clip-rule="evenodd" />
+                </svg>
+                <span class="underline decoration-blue-500 text-black dark:text-white">Para propósitos
+                    educativos</span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                    class="w-10 h-10 fill-black dark:fill-white">
+                    <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H3.75A.75.75 0 013 10z"
+                        clip-rule="evenodd" />
+                </svg>
+            </section>
+        </footer>
+    </article>
+</body>
+<script src="index.js"></script>
+
 </html>
