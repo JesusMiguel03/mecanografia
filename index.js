@@ -1,11 +1,10 @@
 function allStorage() {
-    let archive = [],
-        keys = Object.keys(localStorage),
-        i = 0,
-        key
+    let [archive, keys, i, key] = [[], Object.keys(localStorage), 0]
 
     for (; (key = keys[i]); i++) {
-        archive.push(JSON.parse(localStorage.getItem(key)))
+        key.includes("User-")
+            ? archive.push(JSON.parse(localStorage.getItem(key)))
+            : ""
     }
 
     archive.sort((a, b) => b.ptsObtained - a.ptsObtained)
@@ -36,13 +35,15 @@ const [
     valueMax,
     helpMin,
     helpMax,
+    showNickname,
 ] = [
-    document.getElementById("register-user"),
-    document.getElementById("register-guest"),
+    document.getElementById("registerAsUser"),
+    document.getElementById("registerAsGuest"),
     document.getElementById("valueMin"),
     document.getElementById("valueMax"),
     document.getElementById("helpMin"),
     document.getElementById("helpMax"),
+    document.getElementById("showNickname"),
 ]
 let [valueMinValidation, valueMaxValidation, minStored, maxStored, user] = [
     false,
@@ -58,195 +59,19 @@ const iniciar = (valueMin, valueMax) => {
         mistakes,
         time,
         statistics,
-        text,
-        textBox,
-        timerContainer,
+        textarea,
+        paragraph,
+        showTimer,
         changeTxt,
-        words,
     ] = [
         document.getElementById("pts"),
         document.getElementById("miss"),
         document.getElementById("time"),
         document.getElementById("statistics"),
-        document.getElementById("text"),
-        document.getElementById("string"),
-        document.getElementById("timer"),
+        document.getElementById("textarea"),
+        document.getElementById("paragraph"),
+        document.getElementById("showTimer"),
         document.getElementById("change-txt"),
-        [
-            "el",
-            "elefante",
-            "camina",
-            "por",
-            "la",
-            "sabana",
-            "en",
-            "busca",
-            "de",
-            "alimento",
-            "la",
-            "pantera",
-            "caza",
-            "a",
-            "su",
-            "presa",
-            "con",
-            "sus",
-            "garras",
-            "comer",
-            "pescado",
-            "carne",
-            "miel",
-            "hierbas",
-            "medicina",
-            "comida",
-            "huevos",
-            "casa",
-            "hogar",
-            "propiedad",
-            "consultorio",
-            "edificio",
-            "en",
-            "un",
-            "cocina",
-            "hombre",
-            "mujer",
-            "niño",
-            "castigo",
-            "llanto",
-            "azucar",
-            "cafe",
-            "agua",
-            "bebida",
-            "pez",
-            "pollo",
-            "bistec",
-            "ballena",
-            "belleza",
-            "construir",
-            "parada",
-            "abono",
-            "asfalto",
-            "cemento",
-            "tierra",
-            "madera",
-            "ella",
-            "ellos",
-            "vosotros",
-            "nosotros",
-            "tu",
-            "caminar",
-            "correr",
-            "andar",
-            "respirar",
-            "nadar",
-            "oceano",
-            "playa",
-            "palmera",
-            "divisa",
-            "economia",
-            "historia",
-            "fisica",
-            "quimica",
-            "acido",
-            "proteinas",
-            "cafeina",
-            "descubrimiento",
-            "hallazgo",
-            "piedra",
-            "troncos",
-            "mosquitos",
-            "mosca",
-            "asterisco",
-            "marioneta",
-            "persona",
-            "chico",
-            "chica",
-            "asiatico",
-            "europeo",
-            "frances",
-            "español",
-            "indio",
-            "americano",
-            "brazilero",
-            "dominicano",
-            "venezolano",
-            "colombiano",
-            "neozelandes",
-            "dolar",
-            "euro",
-            "petroleo",
-            "gas",
-            "cuerda",
-            "pradera",
-            "clavos",
-            "tronco",
-            "animal",
-            "ballena",
-            "mamifero",
-            "reptil",
-            "ambar",
-            "almibar",
-            "cereza",
-            "fresa",
-            "fruta",
-            "manzana",
-            "pera",
-            "frambuesa",
-            "faraon",
-            "reliquia",
-            "momia",
-            "peruano",
-            "paloma",
-            "argentino",
-            "mexicano",
-            "uruguayo",
-            "paraguayo",
-            "chileno",
-            "cubano",
-            "canadiense",
-            "puertoriqueño",
-            "analfabeta",
-            "numerico",
-            "numero",
-            "infraestructura",
-            "piramide",
-            "hilo",
-            "coser",
-            "costura",
-            "pomada",
-            "quemadura",
-            "guisante",
-            "lata",
-            "caña",
-            "pescar",
-            "representante",
-            "estado",
-            "salud",
-            "medico",
-            "enfermera",
-            "psiquiatra",
-            "psicologo",
-            "tobogan",
-            "bombillo",
-            "cerilla",
-            "foco",
-            "luz",
-            "sombra",
-            "arbol",
-            "culto",
-            "religion",
-            "azteca",
-            "andino",
-            "meridiano",
-            "mañana",
-            "tarde",
-            "noche",
-            "atardecer",
-            "amanecer",
-            "anochecer",
-            "azafata",
-            "cabina",
-        ],
     ]
 
     let [
@@ -296,7 +121,7 @@ const iniciar = (valueMin, valueMax) => {
             arr[word] === " "
                 ? (p.innerHTML = "&nbsp;")
                 : (p.innerHTML = arr[word])
-            textBox.appendChild(p)
+            paragraph.appendChild(p)
         }
         document.querySelectorAll("p").forEach(span => spanElements.push(span))
     }
@@ -321,37 +146,37 @@ const iniciar = (valueMin, valueMax) => {
     const timeUser = () => {
         return setInterval(() => {
             seg === 59 ? (min++, (seg = 0)) : seg++
-            timerContainer
+            showTimer
                 ? seg < 10
-                    ? (timerContainer.innerHTML = `${min}:0${seg}`)
-                    : (timerContainer.innerHTML = `${min}:${seg}`)
+                    ? (showTimer.innerHTML = `${min}:0${seg}`)
+                    : (showTimer.innerHTML = `${min}:${seg}`)
                 : ""
         }, 1000)
     }
 
     // Input
-    text.addEventListener("input", e => {
-        deleteAll === false
-            ? document.addEventListener("keydown", e => {
-                  e.shiftKey && e.key === "Home" ? (deleteAll = true) : ""
-                  e.key === "Backspace" && deleteAll === true
-                      ? ((temp = ""),
-                        (pts = 0),
-                        (miss = 0),
-                        spanElements.forEach(span => {
-                            span.classList.remove("g")
-                            span.classList.remove("r")
-                            span.classList.remove("text-writted")
-                            span.classList.remove("md:text-2xl")
-                        }))
-                      : ""
-                  e.key === "Shift" ? "" : ""
-              })
+
+    textarea.addEventListener("keydown", e => {
+        e.shiftKey && e.key === "Home" ? (deleteAll = true) : ""
+        deleteAll === true && e.key === "Backspace"
+            ? ((temp = ""),
+              (pts = 0),
+              (miss = 0),
+              spanElements.forEach(span => {
+                  span.classList.remove("g")
+                  span.classList.remove("r")
+                  span.classList.remove("text-writted")
+                  span.classList.remove("md:text-2xl")
+              }))
             : ""
 
-        if (e.data !== null) {
+        if (
+            !["Shift", "Alt", "Control", "Enter", "Backspace", "Home"].includes(
+                e.key
+            )
+        ) {
             !startTimer ? ((timer = timeUser()), (startTimer = true)) : ""
-            temp += e.data
+            temp += e.key
             const element = spanElements[(temp.length - 1, temp.length - 1)]
             if (temp !== "") {
                 element.innerText === temp[temp.length - 1]
@@ -369,7 +194,7 @@ const iniciar = (valueMin, valueMax) => {
                       element.classList.remove("g"))
                 str.substring(0, temp.length) === temp ? pts++ : miss++
             }
-        } else {
+        } else if (e.key === "Backspace") {
             const element = spanElements[(temp.length - 1, temp.length - 1)]
             temp.length > 0
                 ? ((temp = temp.substring(0, temp.length - 1)),
@@ -380,13 +205,14 @@ const iniciar = (valueMin, valueMax) => {
                   element.classList.remove("md:text-2xl"))
                 : ""
         }
+
         if (str.length === pts + miss) {
             statistics.classList.remove("hidden")
             let result = pointsCalculator(str, temp)
             ptsResult.innerHTML = `Puntos: &nbsp;${result[0]} &nbsp;/&nbsp; ${result[1]}`
             mistakes.innerHTML = `Errores: ${result[2]}`
             time.innerHTML = `Tiempo: ${result[3]}`
-            text.remove()
+            textarea.remove()
             clearInterval(timer)
             const stats = {
                 username: user,
@@ -403,8 +229,8 @@ const iniciar = (valueMin, valueMax) => {
     changeTxt.addEventListener("click", () => {
         return [
             clearInterval(timer),
-            (textBox.innerHTML = ""),
-            (text.value = ""),
+            (paragraph.innerHTML = ""),
+            (textarea.value = ""),
             ([
                 str,
                 temp,
@@ -420,7 +246,7 @@ const iniciar = (valueMin, valueMax) => {
             ] = ["", "", "", , 0, 0, 0, 0, false, false, []]),
             stringGenerator(random(minStored, maxStored)),
             createString(),
-            (timerContainer.innerHTML = "0:00"),
+            (showTimer.innerHTML = "0:00"),
         ]
     })
 }
@@ -446,7 +272,7 @@ registeredAsGuest.addEventListener("click", () => {
     validate(valueMax, helpMax, valueMin.value)
     valueMinValidation && valueMaxValidation === true
         ? (iniciar(+valueMin.value, +valueMax.value),
-          (document.getElementById("showUserName").innerHTML = "Guest"),
+          (showNickname.innerHTML = "Guest"),
           (user = "Guest"),
           (minStored = +valueMin.value),
           (maxStored = +valueMax.value),
@@ -455,15 +281,15 @@ registeredAsGuest.addEventListener("click", () => {
 })
 
 registeredAsUser.addEventListener("click", () => {
-    document.getElementById("user").value === ""
-        ? document.getElementById("help").classList.remove("hidden")
+    const nickname = document.getElementById("getNickname")
+    nickname.value === ""
+        ? document.getElementById("nicknameHelp").classList.remove("hidden")
         : (validate(valueMin, helpMin, 0),
           validate(valueMax, helpMax, valueMin.value),
           valueMinValidation && valueMaxValidation === true
               ? (iniciar(+valueMin.value, +valueMax.value),
-                (document.getElementById("showUserName").innerHTML =
-                    document.getElementById("user").value),
-                (user = document.getElementById("user").value),
+                (showNickname.innerHTML = nickname.value),
+                (user = nickname.value),
                 (minStored = +valueMin.value),
                 (maxStored = +valueMax.value),
                 document.getElementById("modal").remove())
@@ -482,10 +308,8 @@ document.getElementById("aside-btn").addEventListener("click", () => {
 
 const reload = document.getElementById("reload")
 reload.addEventListener("click", () => {
-    const paragraph = document.getElementById("string")
-
     let textarea = document.createElement("textarea")
-    textarea.id = "text"
+    textarea.id = "textarea"
     textarea.classList.add(
         "p-4",
         "rounded-md",
@@ -507,7 +331,7 @@ reload.addEventListener("click", () => {
     textarea.placeholder = "Escribe aquí tu respuesta..."
     paragraph.after(textarea)
 
-    document.getElementById("timer").innerHTML = "0:00"
+    showTimer.innerHTML = "0:00"
     document.getElementById("change-txt").innerHTML = "Cambiar texto"
     paragraph.innerHTML = ""
     document.getElementById("statistics").classList.toggle("hidden")
