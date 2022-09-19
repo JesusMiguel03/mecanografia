@@ -156,7 +156,7 @@ const iniciar = (valueMin, valueMax) => {
 
     // Input
     textarea.addEventListener('touchend', e => {
-        paragraph.innerHTML = console.log(e)
+        paragraph.innerHTML = e.key
     })
 
     textarea.addEventListener("keydown", e => {
