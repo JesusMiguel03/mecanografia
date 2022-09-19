@@ -155,7 +155,6 @@ const iniciar = (valueMin, valueMax) => {
     }
 
     // Input
-
     textarea.addEventListener('touchend', e => {
         paragraph.innerHTML = console.log(e)
     })
