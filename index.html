@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Jesus Miguel">
+    <meta name="description"
+        content="Página de mecanografía, permite probar tus habilidades de tipeo / velocidad al teclear.">
     <title>pGames | Mecanografía</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="tailwind\output.css">
@@ -12,38 +15,49 @@
 </head>
 
 <body>
-    <article class="h-screen md:h-screen bg-neutral-300 dark:bg-neutral-500">
-        <!-- Modal -->
+    <article class="h-full md:h-screen bg-neutral-300 dark:bg-neutral-500">
         <div id="modal" tabindex="-1"
             class="overflow-y-auto overflow-x-hidden fixed backdrop-blur-md z-50 w-full h-screen md:h-full opacity-100">
             <div class="relative mx-auto p-4 w-screen max-w-2xl h-screen md:h-auto">
-                <!-- Modal content -->
-                <div class="relative bg-white rounded-lg shadow dark:bg-slate-800">
-                    <!-- Modal header -->
-                    <div class="flex justify-between items-center p-5 rounded-t border-b dark:border-gray-600">
-                        <h3 class="text-xl font-medium text-gray-900 dark:text-white">
+                <div class="relative bg-neutral-200 rounded-lg shadow dark:bg-slate-800">
+                    <div
+                        class="flex justify-center items-center p-5 rounded-t border-b dark:border-gray-600 bg-gray-100 dark:bg-gray-700">
+                        <h3 class="font-text font-bold text-xl text-gray-900 dark:text-white">
                             ¿Te gustaría registrar un usuario?
                         </h3>
                     </div>
-                    <!-- Modal body -->
                     <div class="p-6 space-y-6">
-                        <span class="text-base leading-relaxed text-gray-700 dark:text-gray-300">
-                            Al registrar un usario podrás guardar las estadísticas de todas las pruebas que hagas dentro
-                            de esta página. En caso de no querer registrarse puede continuar como invitado
-                        </span>
+                        <section
+                            class="font-text text-justify leading-relaxed text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-md p-4">
+                            Al registrar un nick o apodo en el campo <span
+                                class="font-bold underline decoration-red-500"><a href="#getNickname"
+                                    target="_self">Usuario</a></span>
+                            podrás guardar las estadísticas de todas las pruebas que hagas dentro
+                            de esta página. En caso de no querer registrarse, puede continuar como
+                            <a href="#registerAsGuest" target="_self"
+                                class="font-bold underline decoration-red-500">Invitado</a>.
+                        </section>
+                        <section
+                            class="font-text text-justify text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-md p-4">
+                            Debe
+                            llenar las casillas de <span class="font-bold underline decoration-red-500">Palabras <a
+                                    href="#valueMin" target="_self">mínimas</a> y <a href="#valueMax"
+                                    target="_self">máximas</a></span> para empezar la prueba.
+                        </section>
                         <label class="block">
-                            <span class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Usuario</span>
-                            <input type="text" id="user"
+                            <span
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300 font-title">Usuario</span>
+                            <input type="text" id="getNickname"
                                 class="peer rounded-lg block w-full p-2.5 bg-gray-50 border border-gray-300 text-gray-900 text-sm dark:bg-white focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-emerald-500"
                                 placeholder="Aaron">
-                            <small id="help" class="hidden text-red-400">¡No se puede registrar un usuario sin
+                            <small id="nicknameHelp" class="hidden text-red-400">¡No se puede registrar un usuario sin
                                 nombre!</small>
                         </label>
                         <section class="grid gap-6 mb-6 md:grid-cols-2">
                             <div>
                                 <label for="valueMin"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Párrafos
-                                    mínimos</label>
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300 font-title">Palabras
+                                    mínimas</label>
                                 <input type="number" id="valueMin"
                                     class="peer rounded-lg block w-full p-2.5 bg-gray-50 border border-gray-300 text-gray-900 text-sm dark:bg-white focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-blue-500"
                                     placeholder="Mínimo... E.j: 5" required>
@@ -51,22 +65,27 @@
                             </div>
                             <div>
                                 <label for="valueMax"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Párrafos
-                                    máximos</label>
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300 font-title">Palabras
+                                    máximas</label>
                                 <input type="number" id="valueMax"
                                     class="peer rounded-lg block w-full p-2.5 bg-gray-50 border border-gray-300 text-gray-900 text-sm dark:bg-white focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-blue-500"
                                     placeholder="Máximo... E.j: 10" required>
                                 <small id="helpMax" class="hidden text-red-400">No cumple los requisitos</small>
                             </div>
                         </section>
+                        <section
+                            class="font-text rounded-md p-4 text-justify md:text-md text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-md">
+                            <span class="font-bold underline decoration-red-500">Dato:</span> No hay un límite de
+                            palabras a
+                            mostrar establecido.
+                        </section>
                     </div>
-                    <!-- Modal footer -->
                     <div
-                        class="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
-                        <button type="button" id="register-user"
-                            class="text-black bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-500">Registrar</button>
-                        <button type="button" id="register-guest"
-                            class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Invitado</button>
+                        class="flex items-center p-6 space-x-2 mb-2 rounded-b border-t border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 font-title">
+                        <button type="button" id="registerAsUser"
+                            class="focus:ring-4 focus:outline-none focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center text-white bg-red-600 hover:bg-red-700 focus:ring-red-500">Registrar</button>
+                        <button type="button" id="registerAsGuest"
+                            class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-400 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Invitado</button>
                     </div>
                 </div>
             </div>
@@ -74,11 +93,9 @@
         <section class="grid grid-cols-5 bg-white dark:bg-slate-800 shadow-xl py-2 font-title">
             <aside class="col-span-1 md:hidden place-content-center my-auto">
                 <section class="flex items-center">
-                    <!-- Navbar goes here -->
                     <nav class="mx-auto">
                         <div class="px-4">
                             <div class="flex">
-                                <!-- Mobile menu button -->
                                 <div class="md:hidden flex items-center">
                                     <button class="outline-none mobile-menu-button">
                                         <svg class=" w-8 h-8 text-black dark:text-white hover:text-sky-500"
@@ -91,7 +108,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- mobile menu -->
                         <div class="hidden mobile-menu absolute pb-4">
                             <ul>
                                 <li>
@@ -122,11 +138,13 @@
                 </section>
             </header>
             <div class="col-span-5 flex justify-center items-center gap-4 my-4">
-                <div id="timer" class="px-4 rounded-md text-black dark:text-white bg-neutral-200 dark:bg-neutral-400">0:00</div>
+                <div id="showTimer"
+                    class="px-4 rounded-md text-black dark:text-white bg-neutral-200 dark:bg-neutral-400">0:00</div>
                 <button id="change-txt"
                     class="btn rounded-md px-4 text-black dark:text-white bg-red-500 hover:bg-red-600 dark:bg-rose-500 dark:hover:bg-rose-600 hover:text-white dark:hover:text-black transition duration-300">Cambiar
                     texto</button>
-                <div id="showUserName" class="text-black dark:text-white bg-neutral-200 dark:bg-neutral-400 px-4 rounded-md"></div>
+                <div id="showNickname"
+                    class="text-black dark:text-white bg-neutral-200 dark:bg-neutral-400 px-4 rounded-md"></div>
             </div>
         </section>
         <main class="grid grid-cols-5 font-text md:mx-auto">
@@ -166,10 +184,10 @@
             </article>
             <article class="col-span-5 md:col-span-4">
                 <div class="p-4">
-                    <section id="string"
+                    <section id="paragraph"
                         class="flex flex-wrap text-sm md:text-2xl text-black dark:text-gray-700 my-4 px-8 py-4 justify-center text-center font-bold mb-8 bg-neutral-400 dark:bg-neutral-300 rounded-md">
                     </section>
-                    <textarea id="text"
+                    <textarea id="textarea"
                         class="p-4 rounded-md placeholder:italic placeholder:text-black caret-blue-500 h-48 w-full font-xs focus:outline-none focus:ring focus:ring-violet-300 bg-neutral-400 dark:bg-neutral-300 text-black dark:text-white resize-none"
                         placeholder="Escribe aquí tu respuesta..."></textarea>
                     <article id="statistics"
@@ -263,6 +281,7 @@
         </footer>
     </article>
 </body>
+<script src="words.js"></script>
 <script src="index.js"></script>
 
 </html>
