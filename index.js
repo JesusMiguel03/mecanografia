@@ -155,6 +155,10 @@ const iniciar = (valueMin, valueMax) => {
     }
 
     // Input
+    textarea.addEventListener("input", e => {
+        textarea.innerHTML = e
+        )
+    
     textarea.addEventListener("keydown", e => {
         e.shiftKey && e.key === "Home" ? (deleteAll = true) : ""
         deleteAll === true && e.key === "Backspace"
