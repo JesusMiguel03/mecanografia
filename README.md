@@ -1,7 +1,7 @@
 # Mecanografia
 
 **Instalación**
-```bash
+```
 npm install
 ```
 Para guardar los cambios de estilos
@@ -22,18 +22,26 @@ Cuenta con:
 # Aún no se ha escrito.
 ```
 
-_Un vistazo a la apariencia de la página_:
+_***Un vistazo a la apariencia de la página (modo claro y oscuro)***_:
 
-> Para pantallas de celular / móvil / teléfono:
+> _Para pantallas de celular_:
 
-![This is an image](preview/mobile.png)
-![This is an image](preview/mobile-logged.png)
+![This is an image](preview/modal-mobile-v2.png)
+![This is an image](preview/modal-mobile-v2(bottom).png)
+
+![This is an image](preview/modal-mobile-v2(white).png)
+![This is an image](preview/modal-mobile-v2(white-bottom).png)
+
+![This is an image](preview/mobile-v2.png)
 
 ***
-> Para pantallas superiores:
+> _Para pantallas superiores_:
 
-![This is an image](preview/pc.png)
+![This is an image](preview/modal-pc-v2.png)
+
 ***
-![This is an image](preview/pc-logged.png)
+![This is an image](preview/modal-pc-v2(white).png)
+
+![This is an image](preview/pc-v2.png)
 
 Hecha con propósitos de aprendizaje en lenguaje JavaScript, HTML semántico y [Tailwind CSS](https://tailwindcss.com) .
